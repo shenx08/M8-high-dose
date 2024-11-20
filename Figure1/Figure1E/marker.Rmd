@@ -1,0 +1,18 @@
+---
+title: "marker"
+author: "sx"
+date: "2024/11/16"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+library("ggplot2")
+dt <-read.table("data_txt",header=T,check.names=FALSE,sep="\t")
+dt$time<-factor(dt$time,levels=c("-7","0d","7d","14d","21d","28d"))
+p<-ggplot(dt,aes(x=species,y=value,fill=factor(time))) + geom_bar(position = "dodge",stat = "identity")+scale_fill_manual(values=c("#d94b35", "#4cb0c8","#129880", "#3a5181", "#e9967c", "#808cae"))+coord_fli
+p
+

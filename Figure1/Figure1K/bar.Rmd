@@ -1,0 +1,20 @@
+---
+title: "bar"
+author: "sx"
+date: "2024/11/18"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+library(ggbeeswarm)
+library(ggplot2)
+library(Hmisc)
+a<- read.table("data.txt",sep='\t', header=T)
+setwd("path")     #设置工作路径
+a$time<-factor(a$time,levels=c("7d","14d","21d","28d")) 
+p<-ggplot(a,aes(x=time,y=irep.value,fill=irep.value))+
+    geom_bar(stat = "identity",size=2.5,width = 0.4, fill=c("#129880", "#3a5181", "#e9967c", "#8e4b98"))
+p
+

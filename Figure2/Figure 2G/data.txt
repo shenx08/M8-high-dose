@@ -1,0 +1,9 @@
+time	dose	index
+7d	18	node
+14d	11	node
+21d	13	node
+28d	10	node
+7d	17	edge
+14d	10	edge
+21d	12	edge
+28d	9	edge

@@ -1,0 +1,34 @@
+---
+title: "shannon"
+author: "sx"
+date: "2024/11/16"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## 
+library(vegan)
+library(permute)
+library(lattice)
+setwd("path")     #设置工作路径
+data <- read.table("abundance.txt", row.names=1, header=T,sep = "\t") 
+Shannon.Wiener <- diversity(data, index = "shannon")
+Simpson <- diversity(data, index = "simpson")
+div<-data.frame(Shannon.Wiener,Simpson)
+write.csv(div,"Data.csv") 
+
+可视化
+library(ggpubr)
+library(ggplot2)
+df <-read.table("shannon.txt",header=T,check.names=FALSE,sep="\t")
+p<-ggpaired(df, x="group", y="shannon", fill="group",id = "ID",
+             add="jitter",line.color = "gray", line.size = 0.5,
+             palette=c("#d94b35", "#4cb0c8","#129880", "#3a5181", "#e9967c", "#808cae"),
+             xlab=" ", 
+             ylab="shannonn")
+p
+compare_means(shannon~group, data=df, method = "wilcox.test", paired = T,  group.by = NULL)
+

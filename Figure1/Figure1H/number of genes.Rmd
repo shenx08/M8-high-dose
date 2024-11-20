@@ -1,0 +1,15 @@
+---
+title: "number of genes"
+author: "sx"
+date: "2024/11/16"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+library(ggplot2)
+a<- read.table("data.txt",sep='\t', header=T)
+p <- ggplot(a, aes(x = x, y = number)) +geom_bar(stat = "identity",fill="#0d7ca8")+geom_text(aes(label = number), vjust = -0.5)
+p

@@ -1,0 +1,19 @@
+---
+title: "irep"
+author: "sx"
+date: "2024/11/18"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+library(ggpubr)
+library(ggplot2)
+setwd("path")     #设置工作路径
+a<- read.table("data.txt",sep='\t', header=T)
+a$dose<-factor(a$dose,levels=c("Parabacteroides merdae","Alistipes communis","Lachnospira sp900316325", "Mediterraneibacter lactaris","UBA7182 sp003480725", "Gemmiger qucibialis","Anaerobutyricum soehngenii","Eubacterium_I ramulus","Anaerobutyricum hallii","Clostridium_Q sp003024715", "Faecalibacterium prausnitzii","Enterocloster sp000431375"))
+p <- ggboxplot(a, x="dose", y="supp", fill = "dose", color= "black", add = "jitter")+scale_fill_manual(values=c("#0c6db3", "#e4b918", "#858585", "#c3514a", "#779fd1", "#003a63", "#897629", "#3a3b3b", "#9f302e", "#47668a", "#d5735c", "#7eac95"))+coord_flip()
+p
+compare_means(Number~group, data=a, method = "wilcox.test", paired = T,  group.by = NULL)

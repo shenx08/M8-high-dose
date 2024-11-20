@@ -1,0 +1,15 @@
+---
+title: "Figure2G"
+author: "sx"
+date: "2024/11/19"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+library(ggplot2)
+a<- read.table("data.txt",sep='\t', header=T)
+a$time<-factor(a$time,levels=c("-7","0d","7d","14d","21d","28d"))
+ggplot(a,aes(time,dose,group=index,color=index,shape=index))+ geom_point(size=4)+
+     geom_line(position = position_dodge(0.1),cex=1.3)

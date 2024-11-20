@@ -1,0 +1,70 @@
+---
+title: "Figure2A"
+author: "sx"
+date: "2024/11/18"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+library(ggplot2)
+library(ggpubr)
+setwd("path")     #设置工作路径
+plot_data1<-read.table("data1.txt",sep='\t', header=T)   #柱状图用
+plot_data2<-read.table("data2.txt",sep='\t', header=T)  #散点图用
+plot_data1$group<-factor(plot_data1$group,levels=c("-7","0d","7d","14d","21d","28d")) 
+plot_data2$group<-factor(plot_data2$group,levels=c("-7","0d","7d","14d","21d","28d")) 
+p<- ggplot()+ 
+     geom_bar(data=plot_data1,mapping=aes(x=group,y=mean), #柱状图
+              fill = "white",
+              size = 1.0,
+              color = c("#da4c35","#4eb1c9","#169982","#3b5282","#eb977d","#818daf"),
+              position="dodge", # 柱状图格式
+              stat="identity", # 数据格式
+              width = 0.4)+  # 柱状图尺寸
+     geom_jitter(data=plot_data2, #散点
+                 mapping=aes(x=group,y=value,fill = group,colour = group),
+                 size = 2,
+                 height = 0.05,#散点纵向抖动                 
+                 width = 0.1)+scale_color_manual(values=c("#da4c35","#4eb1c9","#169982","#3b5282","#eb977d","#818daf"))+ #散点横向抖
+     geom_errorbar(data=plot_data1,mapping=aes(x = group,ymin = mean, ymax = mean+sd), # 误差线添加
+                   width = 0.3, #误差线的宽度
+                   color = c("#da4c35","#4eb1c9","#169982","#3b5282","#eb977d","#818daf"), #颜色
+                   size=0.8)
+p
+compare_means(value~group, data=plot_data2, method = "wilcox.test", paired = T,  group.by = NULL)
+
+
+
+
+
+plot_data1<-read.table("nSNV1.txt",sep='\t', header=T)   #柱状图用
+plot_data2<-read.table("nSNV2.txt",sep='\t', header=T)  #散点图用
+plot_data1$group<-factor(plot_data1$group,levels=c("-7","0d","7d","14d","21d","28d")) 
+plot_data2$group<-factor(plot_data2$group,levels=c("-7","0d","7d","14d","21d","28d")) 
+p<- ggplot()+ 
+     geom_bar(data=plot_data1,mapping=aes(x=group,y=mean), #柱状图
+              fill = "white",
+              size = 1.0,
+              color = c("#da4c35","#4eb1c9","#169982","#3b5282","#eb977d","#818daf"),
+              position="dodge", # 柱状图格式
+              stat="identity", # 数据格式
+              width = 0.4)+  # 柱状图尺寸
+     geom_jitter(data=plot_data2, #散点
+                 mapping=aes(x=group,y=value,fill = group,colour = group),
+                 size = 2,
+                 height = 0.05,#散点纵向抖动                 
+                 width = 0.1)+scale_color_manual(values=c("#da4c35","#4eb1c9","#169982","#3b5282","#eb977d","#818daf"))+ #散点横向抖
+     geom_errorbar(data=plot_data1,mapping=aes(x = group,ymin = mean, ymax = mean+sd), # 误差线添加
+                   width = 0.3, #误差线的宽度
+                   color = c("#da4c35","#4eb1c9","#169982","#3b5282","#eb977d","#818daf"), #颜色
+                   size=0.8)
+p
+compare_means(value~group, data=plot_data2, method = "wilcox.test", paired = F,  group.by = NULL)
+
+
+
+
+
